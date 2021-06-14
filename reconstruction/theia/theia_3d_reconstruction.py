@@ -3,8 +3,9 @@ import numpy as np
 import os
 from matplotlib import pyplot as plt
 
-accumulated_verts = None
 
+# credit: https://github.com/shekkizh/ImageProcessingProjects/blob/master/PythonProjects/Stereo/StereoMatching.py
+accumulated_verts = None
 PLY_HEADER = '''ply
 format ascii 1.0
 element vertex %(vert_num)d
@@ -18,12 +19,13 @@ end_header
 '''
 FILENAME = "./stereo5.ply"
 
+# credit: https://github.com/shekkizh/ImageProcessingProjects/blob/master/PythonProjects/Stereo/StereoMatching.py
 def write_ply():
     with open(FILENAME, 'w') as f:
         f.write(PLY_HEADER % dict(vert_num=len(accumulated_verts)))
         np.savetxt(f, accumulated_verts, '%f %f %f %d %d %d')
 
-
+# credit: https://github.com/shekkizh/ImageProcessingProjects/blob/master/PythonProjects/Stereo/StereoMatching.py
 def append_ply_array(verts, colors):
     global accumulated_verts
     verts = verts.reshape(-1, 3)
@@ -106,6 +108,7 @@ out_points = points[mask]
 out_colors = colors[mask]
 append_ply_array(out_points, out_colors)
 
+# Credit : https://www.programcreek.com/python/?code=shekkizh%2FImageProcessingProjects%2FImageProcessingProjects-master%2FPythonProjects%2FStereo%2FStereoMatching.py
 disparity_scaled = (disparity - min_disp) / num_disp
 disparity_scaled += abs(np.amin(disparity_scaled))
 disparity_scaled /= np.amax(disparity_scaled)
